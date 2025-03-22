@@ -33,11 +33,11 @@ export default async function GalleryPage() {
                 <div className="grid grid-cols-4 gap-4">
                     {results.resources.map((result: any) => (
                         <CloudinaryImage
-                            path="/gallery"
                             imagedata={result}
                             alt="image"
                             width="400"
-                            height="300" />
+                            height="300" 
+                            />
                     ))}
                 </div>
             </div>
