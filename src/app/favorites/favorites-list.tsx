@@ -2,10 +2,12 @@
 import { CldImage } from "next-cloudinary";
 
 import cloudinary from "cloudinary";
-import { CloudinaryImage } from "../gallery/cloudinary-img";
+
 import { SearchResult } from "../gallery/page";
 import { ForceRefresh } from "@/components/force-refresh";
 import { useEffect, useState } from "react";
+import { ImageGrid } from "@/components/image-grid";
+import { CloudinaryImage } from "@/components/cloudinary-img";
 
 
 
@@ -20,10 +22,12 @@ export default function FavoritesList({
         setResources(initResources);
     }, [initResources])
     return (
-        <div className="grid grid-cols-4 gap-4">
-            {resources.map((result) => (
+        <ImageGrid images={resources} 
+        getImage={(imageData: SearchResult) => {
+            return (
                 <CloudinaryImage
-                    imagedata={result}
+                    key={imageData.public_id}
+                    imagedata={imageData}
                     alt="image"
                     width="400"
                     height="300"
@@ -36,7 +40,8 @@ export default function FavoritesList({
                         );
                     }}
                 />
-            ))}
-        </div>
+            )
+        }}
+        />
     );
 }

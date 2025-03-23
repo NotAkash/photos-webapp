@@ -1,8 +1,9 @@
 import { CldImage } from "next-cloudinary";
 import UploadButton from "./upload-button";
 import cloudinary from "cloudinary";
-import { CloudinaryImage } from "./cloudinary-img";
 import { ForceRefresh } from "@/components/force-refresh";
+import { ImageGrid } from "@/components/image-grid";
+import GalleryGrid from "./gallery-grid";
 
 export type SearchResult = {
     public_id: string;
@@ -18,28 +19,16 @@ export default async function GalleryPage() {
         .fields('tags')
         .execute() as { resources: SearchResult[] };
 
-
-    // console.log("results", results)
     return (
         <section>
-            <ForceRefresh/>
+            <ForceRefresh />
             <div className="flex flex-col gap-8">
-                
+
                 <div className="flex justify-between">
                     <h1 className="text-4xl font-bold">Gallery</h1>
                     <UploadButton />
                 </div>
-
-                <div className="grid grid-cols-4 gap-4">
-                    {results.resources.map((result: any) => (
-                        <CloudinaryImage
-                            imagedata={result}
-                            alt="image"
-                            width="400"
-                            height="300" 
-                            />
-                    ))}
-                </div>
+                <GalleryGrid images={results.resources}/> 
             </div>
         </section>
 
