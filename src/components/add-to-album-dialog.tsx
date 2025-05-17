@@ -16,14 +16,28 @@ import { SearchResult } from "@/app/gallery/page"
 import React from "react"
 import { addToAlbum } from "./actions"
 
-export function AddToAlbumDialog({ image }: { image: SearchResult }) {
+export function AddToAlbumDialog({
+    image,
+    onClose,
+}: {
+    image: SearchResult;
+    onClose: () => void;
+}) {
 
     const [albumName, setAlbumName] = useState("")
     const [open, setOpen] = React.useState(false);
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+            open={open}
+            onOpenChange={(newOpenState) => {
+                setOpen(newOpenState);
+                if (!newOpenState) {
+                    onClose();
+                }
+            }}
+        >
             <DialogTrigger asChild>
-                <Button variant="ghost">
+                <Button variant="ghost" className="w-36">
                     Add to Album<AddToFolder />
                 </Button>
             </DialogTrigger>
@@ -48,9 +62,9 @@ export function AddToAlbumDialog({ image }: { image: SearchResult }) {
                 </div>
                 <DialogFooter>
                     <Button
-                        onClick={async() => {
+                        onClick={async () => {
                             console.log(image);
-                            await addToAlbum(albumName,image)
+                            await addToAlbum(albumName, image)
                             setOpen(false);
                         }} type="submit">Save changes</Button>
                 </DialogFooter>
