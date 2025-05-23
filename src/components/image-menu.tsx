@@ -1,24 +1,28 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button } from "@/components/ui/button"
+
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Menu } from "./icons/menu"
-import AddToFolder from "./ui/folder-add"
-import DeleteImg from "./ui/delete-img"
-import { AddToAlbumDialog } from "./add-to-album-dialog"
-import { SearchResult } from "@/app/gallery/page"
-import { useState } from "react"
-import Link from "next/link"
-import { Pencil } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import { Menu } from "./icons/menu";
+import { AddToAlbumDialog } from "./add-to-album-dialog";
+import { SearchResult } from "@/app/gallery/page";
+import { useState, useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
 
 export function ImageMenu({ image }: { image: SearchResult }) {
     const [open, setOpen] = useState(false);
+
+    // Ensure this runs only on the client side
+    const pathname = usePathname();
+    if (pathname.startsWith("/public/")) {
+        return null;
+    }
+
     return (
         <div className="absolute top-2 right-2">
             <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -37,12 +41,6 @@ export function ImageMenu({ image }: { image: SearchResult }) {
                             asChild
                             variant="ghost"
                         >
-                            <Link
-                                href={`/edit?publicId=${encodeURIComponent(image.public_id)}`}
-                            >
-                                <Pencil className="mr-2 w-4 h-4" />
-                                Edit
-                            </Link>
                         </Button>
                     </DropdownMenuItem>
                 </DropdownMenuContent>

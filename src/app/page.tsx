@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { CldUploadButton, CldImage } from 'next-cloudinary';
@@ -22,7 +24,7 @@ export default function Home() {
                     height="600"
                     src={imageId}
                     sizes="100vw"
-                    alt="Description of my image" />
+                    alt="Image"/>
             )}
         </main>
     );

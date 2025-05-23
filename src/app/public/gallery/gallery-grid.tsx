@@ -1,12 +1,11 @@
-/* eslint-disable react/react-in-jsx-scope */
 'use client';
 
 
 import { ImageGrid } from "@/components/image-grid";
+import { SearchResult } from "./page";
 import { CloudinaryImage } from "@/components/cloudinary-img";
-import { SearchResult } from "@/app/gallery/page";
 
-export default function AlbumGrid({images}: {images: SearchResult[]}) {
+export default function GalleryGrid({images}: {images: SearchResult[]}) {
 
     return (
         <ImageGrid
